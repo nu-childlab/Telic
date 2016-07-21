@@ -164,13 +164,13 @@ imageTexture = Screen('MakeTexture', window, imagename);
 %yscale is used to scale the images to be smaller or larger.
 initprint = 0;
 %initprintsubj = 0;
-if ~(exist('TELICXData.csv', 'file') == 2)
+if ~(exist('TELIC3Data.csv', 'file') == 2)
     initprint = 1;
 end
 %if ~(exist([subj '.csv'], 'file') == 2)
 %    initprintsubj = 1;
 %end
-dataFile = fopen('TELICXData.csv', 'a');
+dataFile = fopen('TELIC3Data.csv', 'a');
 subjFile = fopen(sprintf([subj '.csv']),'a');
 if initprint
     fprintf(dataFile, 'subj,time,telicity,cond,list,trial1,trial2,contrast,response,order,presorder \n');
