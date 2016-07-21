@@ -12,3 +12,16 @@ This experiment contained two conditions: events (animations) and objects (image
 
 #Telic 2
 This experiment used the same stimuli and structure as Telic 1. Instead of rating similarity, participants were asked to select which language they preferred to describe an image/animation.
+
+#Telic 3
+This experiment used the same stimuli as Telic 1 and 2. This was the first Telic experiment that added training trials to the start, which demonstrated the images and animations. The training trials used polar loops with fewer petals; this was accomplished by drawing a 3-loop polar figure and only traversing one or two of the loops. This experiment returned to the 1-7 rating scale question from Telic 1, but added the language from Telic 2 to the questions.
+
+#Telic X
+This experiment is almost identical to Telic 3; the only change is that the language used for the telic and atelic conditions is switched.
+
+#Telic Y
+This experiment is almost identical to Telic2; the only change is that the language for the questions used is different.
+
+#Future Telic Experiments
+
+Telic-Wroclaw is currently in development, and can be found at https://github.com/nu-childlab/Telic-Wroclaw
