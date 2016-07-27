@@ -25,10 +25,12 @@ This experiment is almost identical to Telic2; the only change is that the langu
 #Future Telic Experiments
 
 ###Telic Wroclaw
-Telic Wroclaw have not been run, and can be found at [the Telic Wroclaw github page](https://github.com/nu-childlab/Telic-Wroclaw).
+Telic Wroclaw  and Telic Wroclaw Prime have not been run, and can be found at [the Telic Wroclaw github page](https://github.com/nu-childlab/Telic-Wroclaw).
 
 ###Telic 2 Variations
-Variations on Telic 2 have not begun development.
+Variations on Telic 2 are in development, and can be found at the [Telic 2 Variations github page](https://github.com/nu-childlab/Telic2-Variations).
+
+Version 2v2 is in progress. The others are not yet started.
 
 ###Telic Z
 Telic Z has not begun development, but adaptations made to Wroclaw will facilitate its progress. When beginning work on Telic Z, start from Wroclaw.
