@@ -1,7 +1,7 @@
 # Telic
 A collection of experiments programmed in Matlab R2015a
 
-These experiments also use Psychtoolbox version 3.0.12. For more information, see [their github page](https://github.com/Psychtoolbox-3/Psychtoolbox-3).
+These experiments also use Psychtoolbox version 3.0.12. For more information, see [the github page](https://github.com/Psychtoolbox-3/Psychtoolbox-3).
 
 ##Telic 1
 The initial experiment investigating the hypothesis of mass and count comparisons. The stimuli creation for these experiments involved plotting polar loops. From theta = 0 to theta = 2 * pi, a set of cartesian coordinates corresponding to the polar loop were generated. The polar loop would have between 4 and 9 loops. These coordinates were then scaled according to screen size, and an image of a star was moved along these points to create an animation of the star traversing the polar loops. Pauses in the star's movements were either equally spaced (all occuring at the center of the figure) or randomly distributed throughout the figure.
@@ -25,9 +25,7 @@ This experiment is almost identical to Telic2; the only change is that the langu
 #Future Telic Experiments
 
 ###Telic Wroclaw
-Telic Wroclaw has not been run, and can be found at [its github page](https://github.com/nu-childlab/Telic-Wroclaw).
-
-Telic Wroclaw Prime is in development, and can be found in [this branch of the Wroclaw page](https://github.com/nu-childlab/Telic-Wroclaw/tree/wroclaw-prime).
+Telic Wroclaw have not been run, and can be found at [the Telic Wroclaw github page](https://github.com/nu-childlab/Telic-Wroclaw).
 
 ###Telic 2 Variations
 Variations on Telic 2 have not begun development.
