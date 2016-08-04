@@ -1,4 +1,4 @@
-function [] = TelicXv1()
+function [] = TelicX()
 Screen('Preference', 'SkipSyncTests', 0);
 close all;
 sca
@@ -138,7 +138,7 @@ Priority(MaxPriority(window));
 
 %%%%%%Shape Prep
 
-theImageLocation = 'star3.png';
+theImageLocation = 'star.png';
 [imagename, ~, alpha] = imread(theImageLocation);
 imagename(:,:,4) = alpha(:,:);
 

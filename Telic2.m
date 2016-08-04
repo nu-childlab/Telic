@@ -1,4 +1,4 @@
-function [] = Telic2v1()
+function [] = Telic2()
 Screen('Preference', 'SkipSyncTests', 0);
 close all;
 sca
@@ -118,7 +118,7 @@ switch shape
         baseRect = [0 0 200 200];
         fillShape = 'FillRect';
     case 'Star'
-        theImageLocation = 'star3.png';
+        theImageLocation = 'star.png';
         %theImage = imread(theImageLocation);
         [imagename, ~, alpha] = imread(theImageLocation);
         imagename(:,:,4) = alpha(:,:);
