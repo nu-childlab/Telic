@@ -14,6 +14,9 @@ The second set of stimuli, the static image stimuli, included another step in th
 ##Training Trials
 Telic 3 and Telic X both used a set of training trials to introduce the stimuli. The training trials used polar loops with fewer petals; this was accomplished by drawing a 3-loop polar figure and only traversing one or two of the loops.
 
+##Other Additions
+Telic 1, Telic 2, and an earlier version of Telic 3 only run one of two conditions; you ned to run the script twice and choose a different condition each time to get the full experiment. The version of Telic 3 uploaded here and all future Telic experiments run both conditions on the same script; at start you will be prompted to choose which condition should be run first.
+
 #Polar Loop Experiments
 ##Telic 1
 The initial experiment investigating the hypothesis of mass and count comparisons. Participants were asked to rate the similarity of pairs of animations or images on a scale of 1 to 7. Each condition had 40 trials, for 80 trials total.
