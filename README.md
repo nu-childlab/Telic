@@ -15,7 +15,7 @@ The second set of stimuli, the static image stimuli, included another step in th
 Telic 3 and Telic X both used a set of training trials to introduce the stimuli. The training trials used polar loops with fewer petals; this was accomplished by drawing a 3-loop polar figure and only traversing one or two of the loops.
 
 ##Other Additions
-Telic 1, Telic 2, and an earlier version of Telic 3 only run one of two conditions; you ned to run the script twice and choose a different condition each time to get the full experiment. The version of Telic 3 uploaded here and all future Telic experiments run both conditions on the same script; at start you will be prompted to choose which condition should be run first.
+Telic 1, Telic 2, and an earlier version of Telic 3 only run one of two conditions; you need to run the script twice and choose a different condition each time to get the full experiment. The version of Telic 3 uploaded here and all future Telic experiments run both conditions on the same script; at start you will be prompted to choose which condition should be run first.
 
 #Polar Loop Experiments
 ##Telic 1
@@ -38,10 +38,10 @@ Beginning with Telic Wroclaw and continuing onwards, I've made a number of chang
 ##Ellipse Calculations
 The polar loops used for previous experiments have been replaced with ellipses. One ellipse corresponds to one petal of a polar loop. This change allows the size of the loops to be more easily manipulated. After each ellipse is created, it is rotated such that each ellipse will be equally spaced from 0 to 360 degrees. They are then pushed out an amount so that one edge of the ellipse touches the origin, thus arranging the ellipses into a flower-like shape similar to the polar loops.
 
-Additionally, the beginning point of the ellipse is not where it needs to be for the progression of the animation, so the list of points has to be moved slightly to make sure the shapes' movements start at the correct point of the ellipse.
+Additionally, the beginning point of the ellipse is not where it needs to be for the progression of the animation, so the list of points has to be moved slightly to make sure the shapes' movements start at the correct point of the ellipse. The rotation and spatial separation uses the same method as for polar loops.
 
 ##Training Trials
-Telic Wroclaw and Wroclaw Prime used training trials, set up differently from previous training segments. These training trials used shapes with one, two, or three ellipses, each of which was applied to one timing condition. This resulted in a total of 6 traiing trials, with the shape of a star or heart randomly assigned to each.
+Telic Wroclaw and Wroclaw Prime used training trials, set up differently from previous training segments. These training trials used shapes with one, two, or three ellipses, each of which was applied to one timing condition. This resulted in a total of 6 training trials, with the shape of a star or heart randomly assigned to each.
 
 ##Other Additions
 * The star image has been changed to a brighter red, and there is now a blue heart image. 
