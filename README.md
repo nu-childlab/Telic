@@ -57,11 +57,13 @@ Telic Wroclaw and Wroclaw Prime used training trials, set up differently from pr
 Telic Wroclaw  and Telic Wroclaw Prime have not been run, and can be found at [the Telic Wroclaw github page](https://github.com/nu-childlab/Telic-Wroclaw). This experiment uses a set of anticorrelated timing values. When these values are used, the animations will move faster when there are more loops. While previously, a 9-loop animation would take loger than a 4-loop, the anticorrelated times make the 9-loop animation take less time than the 4-loop. This experiment contains 20 trials, with two animations per trial, over 2 conditions, for a total of 40 trials.
 
 ##Telic 2 Variations
-Variations on Telic 2 are in development, and can be found at the [Telic 2 Variations github page](https://github.com/nu-childlab/Telic2-Variations).
+Variations on Telic 2 have been developed, but are not finished running, and can be found at the [Telic 2 Variations github page](https://github.com/nu-childlab/Telic2-Variations).
 
 Version 2v2 is in review. It will examine the effect of the spatial separation used for object stimuli by applying the same rotation and spatial gaps to the animation paths. The star will jump from path to path (not necessarily in clockwise order) and traverse sections of the path, similar to the object stimuli from the previous Telic experiments. As a note, the size of the gaps has decreased from previous experiments to ensure that the star does not move off-screen. Participants see each number of loops 6 times for each of two conditions (events or objects), for a total of 72 trials.
 
-The other variations are not yet started.
+Version 2v3 is almost identical to version 2v2, but the starting point of the figure is randomized, so the natural condition has pieces of the same shape, but that shape is not necessarily an ellipse.
+
+Version 2v4 is almost identical to version 2v3, but there is an additional break added to the natural condition, such that it contains n+1 pieces of equal length, where n is the number of loops in the figure.
 
 ##Telic Z
 Telic Z has not begun development.
