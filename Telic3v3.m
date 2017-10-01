@@ -307,11 +307,17 @@ for c = 1:2
                 
                 Screen('FillRect', window, grey);
                 Screen('Flip', window);
+                savepoint = 1;
                 for p = 1:totalpoints - 2
                     if ~any(p == Breaks) && ~any(p+1 == Breaks)
-                        %Screen('DrawDots', window, [points(p, 1) points(p, 2)], 5, black, [], 2);
-                        Screen('DrawLine', window, black, points(p, 1), points(p, 2), ...
-                            points(p+1, 1), points(p+1, 2), 5);
+                        Screen('DrawLine', window, black, xpoints(p), ypoints(p), ...
+                            xpoints(p+1), ypoints(p+1), 5);
+                    else
+                        if strcmp(brk, 'equal') && p>1
+                            Screen('DrawLine', window, black, xpoints(p), ypoints(p), ...
+                                xpoints(savepoint), ypoints(savepoint), 5);
+                            savepoint = p+1;
+                        end
                     end
                 end
                 Screen('DrawingFinished', window);
