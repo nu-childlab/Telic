@@ -1,4 +1,4 @@
-function [] = Telic3v1()
+function [] = Telic3v3()
 Screen('Preference', 'SkipSyncTests', 0);
 close all;
 sca
@@ -8,8 +8,8 @@ screenNumber = max(screens);
 rng('shuffle');
 KbName('UnifyKeyNames');
 
-tel=input('Condition a or t: ', 's');
-tel = telcheck(tel);
+% tel=input('Condition a or t: ', 's');
+% tel = telcheck(tel);
 subj=input('Subject Number: ', 's');
 subj = subjcheck(subj);
 if strcmp(subj, 's998')
@@ -29,11 +29,13 @@ else
     %How long to display stimuli in obj conditions
 end
 
-if strcmp(tel, 't')
-    brk = 'equal';
-else
-    brk = 'random';
-end
+% if strcmp(tel, 't')
+% %     brk = 'equal';
+%     breakList = {'equal';'random'};
+% else
+% %     brk = 'random';
+%     breakList = {'random';'equal'};
+% end
 
 
 %%%%%%%%
@@ -186,26 +188,55 @@ if initprintsubj
 end
 lineFormat = '%s,%6.2f,%s,%s,%s,%d,%d,%d,%d\n';
 
-
-
-
-
-blockinstructions(window, screenXpixels, screenYpixels, textsize, 'e', textspace);
+instructions(window, screenXpixels, screenYpixels, textsize, textspace);
 
 %%%%%BLOCK LOOP%%%%%
 
-condList = {'e';'o'};
-condList = condList(randperm(length(condList)));
+telicityBlockList = {'atelic', 'telic'};
+eBlockList = telicityBlockList(randperm(length(telicityBlockList)));
+oBlockList = telicityBlockList(randperm(length(telicityBlockList)));
 
-for c = 1:2
-    cond = condList{c};
-    %Needed for printing.
+blockList = {'o', 'o', 'e', 'e'};
+blockList = blockList(randperm(length(blockList)));
+c = 1;
+%Time variables track the progression through object and event blocks
+%independently
+eventTime = 0;
+objectTime = 0;
+
+% for each block (two o blocks, two e blocks)
+for block = blockList
+    %set the stimuli type and telicity according to the block orders
+    disp(class(block))
+    cond = char(block);
+    if strcmp(cond, 'e') 
+        eventTime = eventTime + 1;
+        if eventTime == 1
+            telicity = eBlockList(1);
+        else 
+            telicity = eBlockList(2);
+        end
+    else
+        objectTime = objectTime + 1;
+        if objectTime == 1
+            telicity = oBlockList(1);
+        else
+            telicity = oBlockList(2);
+        end       
+    end
     
+    if strcmp(telicity,'atelic')
+        brk = 'random';
+    else
+        brk='equal';
+    end
+    
+    blockInstructions(window, textsize, textspace, cond);
     shuff = randperm(length(pairs));
     pairs = pairs(shuff,:);
     %randomization
-    
-    if strcmp(tel, 'a')
+
+    if strcmp(brk, 'random')
         if strcmp(cond, 'e')
             train1 = 'a star doing some GORPS';
             train2 = 'the star doing more GORPS';
@@ -234,7 +265,7 @@ for c = 1:2
             test2 = ' some BLICK';
         end
     end
-    
+
     trainintro = ['First, you' quote 're going to see ' train1 '.'];
     traincont = ['Now you' quote 're going to see ' train2 '.'];
     traincont2 = ['Let' quote 's see that again! You' quote 're going to see ' train3 '.']; 
@@ -245,18 +276,15 @@ for c = 1:2
         quote, ' is', squote, 'totally not similar', quote, ' and ',...
         squote, '7', quote, ' is ', squote, 'totally similar', quote, '.');
     testq = strcat('How similar were those ', test1, ' of ', test2, '?');
-    
+
     training_options = [4;5;6;7;8;9];
     training_options = training_options(randperm(length(training_options)));
     % only the first three numbers
     training_options = training_options(1:3, :);
-    
     Screen('Flip', window);
-    
-    
     vbl = Screen('Flip', window);
-    
-    
+
+
 %%%%%TRAINING%%%%%
 
     if strcmp(cond, 'o')
@@ -282,9 +310,9 @@ for c = 1:2
             loopFrames, minSpace, ifi, imageTexture, vbl, breakTime, training_options(3));
         endTraining(window, textsize, textspace, trainend, testq, screenYpixels);
     end
-    
+
 %%%%%TESTING%%%%%
-    
+
     if strcmp(cond, 'o')
         yscale = screenYpixels / 15;
         xscale = yscale;
@@ -293,25 +321,25 @@ for c = 1:2
             compareLoops = trial(randi([1, 2], 1, 1), :);
             Screen('FillRect', window, grey);
             Screen('Flip', window);
-            fixCross(xCenter, yCenter, black, window, crossTime)
+            fixCross(xCenter, yCenter, black, window, crossTime);
             for loop = compareLoops
                 points = getPoints(loop, loop * loopFrames);
                 totalpoints = numel(points)/2;
-                
+
                 Breaks = makeBreaks(brk, totalpoints, loop, loopFrames, minSpace);
                 points = rotateGaps(points, totalpoints, loopFrames, Breaks, rotateLoops);
-                
+
                 xpoints = (points(:, 1) .* xscale) + xCenter;
                 ypoints = (points(:, 2) .* yscale) + yCenter;
                 points = [xpoints ypoints];
-                
+
                 Screen('FillRect', window, grey);
                 Screen('Flip', window);
                 savepoint = 1;
                 for p = 1:totalpoints - 2
                     if ~any(p == Breaks) && ~any(p+1 == Breaks)
                         Screen('DrawLine', window, black, xpoints(p), ypoints(p), ...
-                            xpoints(p+1), ypoints(p+1), 5);
+                        xpoints(p+1), ypoints(p+1), 5);
                     else
                         if strcmp(brk, 'equal') && p>1
                             Screen('DrawLine', window, black, xpoints(p), ypoints(p), ...
@@ -330,20 +358,20 @@ for c = 1:2
                 %blanks the screen
                 WaitSecs(pauseTime);
             end
-            
+
             %KbStrokeWait;
             [response, time] = getResponse(window, screenXpixels, screenYpixels, textsize, testq);
-            fprintf(dataFile, lineFormat, subj, time*1000, tel, cond, list, compareLoops(1),...
+            fprintf(dataFile, lineFormat, subj, time*1000, brk, cond, list, compareLoops(1),...
                 compareLoops(2), abs(compareLoops(1) - compareLoops(2)), str2double(response));
-            fprintf(subjFile, lineFormat, subj, time*1000, tel, cond, list, compareLoops(1),...
+            fprintf(subjFile, lineFormat, subj, time*1000, brk, cond, list, compareLoops(1),...
                 compareLoops(2), abs(compareLoops(1) - compareLoops(2)), str2double(response));
             vbl = Screen('Flip', window);
         end
-        
+
     else %if cond is 'e'
         yscale = screenYpixels / 8;
         xscale = yscale;
-        
+
         for x = 1:numel(pairs)
             %for each comparison pair in the list
             trial = pairs{x};
@@ -359,7 +387,7 @@ for c = 1:2
                 xpoints = (points(:, 1) .* xscale) + xCenter;
                 ypoints = (points(:, 2) .* yscale) + yCenter;
                 points = [xpoints ypoints];
-                
+
                 pt = 1;
                 waitframes = 1;
                 %t1 = GetSecs;
@@ -369,19 +397,19 @@ for c = 1:2
                     if any(pt == Breaks)
                         WaitSecs(breakTime);
                     end
-                    
+
                     destRect = [points(pt, 1) - 128/2, ... %left
                         points(pt, 2) - 128/2, ... %top
                         points(pt, 1) + 128/2, ... %right
                         points(pt, 2) + 128/2]; %bottom
-                    
+
                     % Draw the shape to the screen
                     Screen('DrawTexture', window, imageTexture, [], destRect, 0);
                     Screen('DrawingFinished', window);
                     % Flip to the screen
                     vbl  = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
                     pt = pt + 1;
-                    
+
                 end
                 %t2 = GetSecs;
                 %time = t2 - t1
@@ -391,21 +419,23 @@ for c = 1:2
                 WaitSecs(pauseTime);
             end
             [response, time] = getResponse(window, screenXpixels, screenYpixels, textsize, testq);
-            fprintf(dataFile, lineFormat, subj, time*1000, tel, cond, list, compareLoops(1),...
+            fprintf(dataFile, lineFormat, subj, time*1000, brk, cond, list, compareLoops(1),...
                 compareLoops(2), abs(compareLoops(1) - compareLoops(2)), str2double(response));
-            fprintf(subjFile, lineFormat, subj, time*1000, tel, cond, list, compareLoops(1),...
+            fprintf(subjFile, lineFormat, subj, time*1000, brk, cond, list, compareLoops(1),...
                 compareLoops(2), abs(compareLoops(1) - compareLoops(2)), str2double(response));
             vbl = Screen('Flip', window);
         end
     end
-    if c == 1
+    if c < 4
         breakScreen(window, textsize, textspace);
+        c = c+1;
     end
 end
 
 %After either e or o
 finish(window, textsize, textspace);
 fclose(dataFile);
+fclose(subjFile);
 sca
 Priority(0);
 end
@@ -417,7 +447,7 @@ end
 
 %%%%%START/FINISH/BREAK FUNCTIONS%%%%%
 
-function [] = instructions(window, screenXpixels, screenYpixels, textsize, cond, textspace)
+function [] = instructions(window, screenXpixels, screenYpixels, textsize, textspace)
     Screen('TextFont',window,'Arial');
     Screen('TextSize',window,textsize);
     black = BlackIndex(window);
@@ -427,22 +457,17 @@ function [] = instructions(window, screenXpixels, screenYpixels, textsize, cond,
     numstep = floor(linspace(xedgeDist, screenXpixels - xedgeDist, 7));
     squote = ' ''';
     quote = '''';
-    if strcmp(cond, 'o') 
-        type = ' image';
-    else
-        type = ' animation';
-    end
-    intro = strcat('In this part of the experiment, you will be asked to consider pairs of animations or',...
-        'images. Your task is to decide, for each pair, how similar what is ',...
-        ' displayed in the two ', type, 's is. \n\n You will indicate your ',...
+    intro = strcat('In this experiment, you will be asked to consider pairs of animations or',...
+        ' images. Your task is to decide, for each pair, how similar what is ',...
+        ' displayed in the two animations or images is. \n\n You will indicate your ',...
         ' judgment on a scale from 1-7, where 1 is', squote, 'not at all similar',...
         quote, ' and 7 is', squote, 'very similar', quote, ', using the number keys ',...
-        ' at the top of the keyboard. While you will likely see pairs of ', type,...
-        's that you judge to be at the endpoints of the scale, you should ',...
+        ' at the top of the keyboard. While you will likely see pairs of animations or images',...
+        ' that you judge to be at the endpoints of the scale, you should ',...
         ' also see pairs that require use of the intermediary points. That is, ',...
         ' please try to use the range provided by the scale. \n\n',...
-        ' You will be able to make your judgement only after each pair of ', type,...
-        's is displayed. The representation below will appear at that time to ',...
+        ' You will be able to make your judgement only after each pair of animations or images',...
+        ' is displayed. The representation below will appear at that time to ',...
         ' remind you of the scale', quote, 's orientation.');
 
     DrawFormattedText(window, intro, 'center', 30, textcolor, 70, 0, 0, textspace);
@@ -467,55 +492,30 @@ function [] = instructions(window, screenXpixels, screenYpixels, textsize, cond,
     RestrictKeysForKbCheck([]);
 end
 
-function [] = blockinstructions(window, screenXpixels, screenYpixels, textsize, cond, textspace)
+function [] = blockInstructions(window, textsize, textspace, type)
     Screen('TextFont',window,'Arial');
     Screen('TextSize',window,textsize);
     black = BlackIndex(window);
     white = WhiteIndex(window);
     textcolor = white;
-    xedgeDist = floor(screenXpixels / 3);
-    numstep = floor(linspace(xedgeDist, screenXpixels - xedgeDist, 7));
-    squote = ' ''';
     quote = '''';
-    if strcmp(cond, 'o') 
-        type = ' image';
+    if strcmp(type, 'object')
+        word = 'images';
     else
-        type = ' animation';
+        word= 'animations';
     end
-    intro = strcat('This part of the experiment has two subparts. \n\n',...
-        'In each subpart, following a training phase, you will consider',...
-    ' pairs of animations or images. Your task is to decide, for each pair, how',...
-    ' similar what is displayed in the two animations or images is. \n\n',...
-    'You will indicate your judgement on a scale from 1-7, where 1 is ',...
-    squote, 'not at all similar', quote, ' and 7 is ', squote, 'very similar',...
-    quote, ', using the number keys at the top of the keyboard. While you will',...
-    ' likely see pairs of animations or images that you judge to be at the endpoints',...
-    ' of the scale, you should also see pairs that require use of the intermediary',...
-    ' points. That is, please try to use the range provided by the scale. \n\n',...
-    'You will be able to make your judgement only after each pair of images is',...
-    ' displayed. The representation below will appear at that time to remind you',...
-    ' of the scale', quote, 's orientation.');
+      intro = ['In this block, you will be asked to compare pairs of ' word '.'...
+          ' You will now see a few examples of these ' word '.\n\n',...
+           'Ready? Press spacebar.'];
+    DrawFormattedText(window, intro, 'center', 'center', textcolor, 70, 0, 0, textspace);
+    
 
-    DrawFormattedText(window, intro, 'center', 30, textcolor, 70, 0, 0, textspace);
-    
-    for x = 1:7
-        DrawFormattedText(window, int2str(x), numstep(x), 5*screenYpixels/8, textcolor, 70);
-    end
-    DrawFormattedText(window, '  not  \n at all \nsimilar', numstep(1) - (xedgeDist / 25), ...
-        5*screenYpixels/8 + 30, textcolor);
-    DrawFormattedText(window, 'totally \nsimilar', numstep(7) - (xedgeDist / 25), ...
-        5*screenYpixels/8 + 30, textcolor);
-    
-    intro2 = ['Please indicate to the experimenter if you have any questions, '...
-        'or are ready to begin the experiment. \n When the experimenter has '...
-        'left the room, you may press spacebar to begin.'];
-    
-    DrawFormattedText(window, intro2, 'center', 4*screenYpixels/5, textcolor, 70, 0, 0, textspace);
     Screen('Flip', window);
     RestrictKeysForKbCheck(KbName('space'));
     KbStrokeWait;
     Screen('Flip', window);
     RestrictKeysForKbCheck([]);
+
 end
 
 function [] = finish(window, textsize, textspace)
@@ -591,8 +591,14 @@ function [response, time] = getResponse(window, screenXpixels, screenYpixels, te
             if any(code(1) == oneseven)
                 endtime = GetSecs;
                 response = KbName(code);
-                response = response(1);
-                inLoop=false;
+                % If only one key was pressed (valid response), the result
+                % is a single char(acter), not a cell in a matrix
+                % calculate response key and exit the loop waiting for
+                % response.
+                if ischar(response)
+                    response = response(1);
+                    inLoop=false;
+                end
             end
         end
     end
